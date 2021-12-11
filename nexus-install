@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 #
 #
-VERSION="1.0.5"
+VERSION="1.0.6"
 #cp -f nexus-utils/nexus-utils.version /usr/local/src/nexus/
 cp -f nexus-utils/*.conf /usr/local/src/nexus/
 cp -f nexus-utils/*.html /usr/local/share/nexus
 cp -f nexus-utils/*.jpg $HOME/Pictures/
 cp -f nexus-utils/*.example $HOME/
-sudo cp -f nexus-utils/check-piano.sh /usr/local/sbin/
 sudo rm -f /usr/local/bin/check-piano.sh
+sudo cp -f nexus-utils/check-piano.sh /usr/local/sbin/
 sudo cp -f nexus-utils/initialize-pi.sh /usr/local/sbin/
 sudo cp -f nexus-utils/*.sh /usr/local/bin/
 sudo cp -f nexus-utils/shutdown_button.py /usr/local/sbin/
@@ -31,8 +31,8 @@ then
 		sudo sed -i '/@pcmanfm .*/a @bash \/usr\/local\/sbin\/check-piano.sh' $AUTOSTART
 	fi
 fi
-## Set Desktop background
 
+# Set Desktop background
 if grep -q "_HOME_" $HOME/.config/pcmanfm/LXDE-pi/desktop-items-0.conf 2>/dev/null
 then
 	sed -i -e "s|_HOME_|$HOME|" $HOME/.config/pcmanfm/LXDE-pi/desktop-items-0.conf
