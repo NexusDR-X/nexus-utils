@@ -258,7 +258,6 @@ do
    		--text="<b><big><big>Desktop Text Editor</big></big>\n\n \
 $MESSAGE</b>\n" \
    		--item-separator="!" \
-			--posx=10 --posy=50 \
 			--align=right \
    		--buttons-layout=center \
   			--text-align=center \
