@@ -287,7 +287,8 @@ $MESSAGE</b>\n" \
   		echo "SHOW_HOSTNAME=\"$SHOW_HOSTNAME\"" >> "$CONFIG_FILE"
 	fi
 
-	[[ $TEXT == "" ]] && { $(command -v pcmanfm) --set-wallpaper="$DEFAULT_BACKGROUND_IMAGE" --wallpaper-mode=center; continue; }
+	#[[ $TEXT == "" ]] && { $(command -v pcmanfm) --set-wallpaper="$DEFAULT_BACKGROUND_IMAGE" --wallpaper-mode=center; continue; }
+	[[ $TEXT == "" ]] && { $(command -v pcmanfm) --reconfigure; continue; }
 
 	TARGET="$PICTURE_DIR/TEXT_$(echo $TEXT | tr -cd [a-zA-Z0-9]).jpg"
 	echo "Deleting $PICTURE_DIR/TEXT_*.jpg"
@@ -304,7 +305,8 @@ $MESSAGE</b>\n" \
     		-gravity south -pointsize 18 -fill white -annotate +0+25 "$INFO" \
 			-gravity south -pointsize 75 -fill yellow -annotate +0+40 "$TEXT" $TARGET
 	fi
-	$(command -v pcmanfm) --set-wallpaper="$TARGET --wallpaper-mode=center"
+	#$(command -v pcmanfm) --set-wallpaper="$TARGET --wallpaper-mode=center"
+	$(command -v pcmanfm) --reconfigure
 	[[ $GUI == FALSE ]] && break
 done
 SafeExit
