@@ -16,7 +16,7 @@
 #%
 #================================================================
 #- IMPLEMENTATION
-#-    version         ${SCRIPT_NAME} 1.2.2
+#-    version         ${SCRIPT_NAME} 1.2.3
 #-    author          Steve Magnuson, AG7GN
 #-    license         CC-BY-SA Creative Commons License
 #-    script_id       0
@@ -288,8 +288,7 @@ $MESSAGE</b>\n" \
   		echo "SHOW_HOSTNAME=\"$SHOW_HOSTNAME\"" >> "$CONFIG_FILE"
 	fi
 
-	#[[ $TEXT == "" ]] && { $(command -v pcmanfm) --set-wallpaper="$DEFAULT_BACKGROUND_IMAGE" --wallpaper-mode=center; continue; }
-	[[ $TEXT == "" ]] && { $(command -v pcmanfm) --reconfigure; continue; }
+	[[ $TEXT == "" ]] && { $(command -v pcmanfm) --set-wallpaper="$DEFAULT_BACKGROUND_IMAGE" --wallpaper-mode=center; continue; }
 
 	TARGET="$PICTURE_DIR/TEXT_$(echo $TEXT | tr -cd [a-zA-Z0-9]).jpg"
 	echo "Deleting $PICTURE_DIR/TEXT_*.jpg"
