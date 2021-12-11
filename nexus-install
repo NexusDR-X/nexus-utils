@@ -31,5 +31,12 @@ then
 		sudo sed -i '/@pcmanfm .*/a @bash \/usr\/local\/sbin\/check-piano.sh' $AUTOSTART
 	fi
 fi
+## Set Desktop background
+
+if grep -q "_HOME_" $HOME/.config/pcmanfm/LXDE-pi/desktop-items-0.conf 2>/dev/null
+then
+	sed -i -e "s|_HOME_|$HOME|" $HOME/.config/pcmanfm/LXDE-pi/desktop-items-0.conf
+	pcmanfm --reconfigure
+fi
 exit 0
 

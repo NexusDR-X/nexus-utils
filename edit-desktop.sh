@@ -16,7 +16,7 @@
 #%
 #================================================================
 #- IMPLEMENTATION
-#-    version         ${SCRIPT_NAME} 1.2.1
+#-    version         ${SCRIPT_NAME} 1.2.2
 #-    author          Steve Magnuson, AG7GN
 #-    license         CC-BY-SA Creative Commons License
 #-    script_id       0
@@ -93,6 +93,7 @@ SCRIPT_HEADSIZE=$(grep -sn "^# END_OF_HEADER" ${0} | head -1 | cut -f1 -d:)
 VERSION="$(ScriptInfo version | grep version | tr -s ' ' | cut -d' ' -f 4)" 
 
 TITLE="Desktop Text Editor $VERSION"
+mkdir -p $HOME/.config/nexus
 CONFIG_FILE="$HOME/.config/nexus/desktop-text.conf"
 PICTURE_DIR="$HOME/Pictures"
 DEFAULT_BACKGROUND_IMAGE="$PICTURE_DIR/NexusDeskTop.jpg"
