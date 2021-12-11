@@ -95,6 +95,7 @@ VERSION="$(ScriptInfo version | grep version | tr -s ' ' | cut -d' ' -f 4)"
 TITLE="Desktop Text Editor $VERSION"
 mkdir -p $HOME/.config/nexus
 CONFIG_FILE="$HOME/.config/nexus/desktop-text.conf"
+[[ -f $HOME/desktop-text.conf ]] && mv $HOME/desktop-text.conf $CONFIG_FILE
 PICTURE_DIR="$HOME/Pictures"
 DEFAULT_BACKGROUND_IMAGE="$PICTURE_DIR/NexusDeskTop.jpg"
 MESSAGE="Enter the text you want displayed below.\nDon't use any single or double quotation marks."
@@ -235,7 +236,7 @@ fi
 MODEL="$(egrep "^Model" /proc/cpuinfo | sed -e 's/ //;s/\t//g' | cut -d: -f2)"
 REVISION="$(egrep "^Revision" /proc/cpuinfo | sed -e 's/ //;s/\t//g' | cut -d: -f2)"
 SERIAL="$(egrep "^Serial" /proc/cpuinfo | sed -e 's/ //;s/\t//g' | cut -d: -f2)"
-[[ -z $MODEL ]] && INFO ="" || INFO="$MODEL with ${MODELS[$REVISION]}"
+[[ -z $MODEL ]] && INFO="" || INFO="$MODEL with ${MODELS[$REVISION]}"
 
 [[ -z $MYCALL ]] && MYCALL="N0CALL"
 
@@ -258,6 +259,7 @@ do
    		--text="<b><big><big>Desktop Text Editor</big></big>\n\n \
 $MESSAGE</b>\n" \
    		--item-separator="!" \
+   		--geometry=0x0+10+50 \
 			--align=right \
    		--buttons-layout=center \
   			--text-align=center \
@@ -304,8 +306,8 @@ $MESSAGE</b>\n" \
     		-gravity south -pointsize 18 -fill white -annotate +0+25 "$INFO" \
 			-gravity south -pointsize 75 -fill yellow -annotate +0+40 "$TEXT" $TARGET
 	fi
-	#$(command -v pcmanfm) --set-wallpaper="$TARGET --wallpaper-mode=center"
-	$(command -v pcmanfm) --reconfigure
+	$(command -v pcmanfm) --set-wallpaper="$TARGET" --wallpaper-mode=center
+	#$(command -v pcmanfm) --reconfigure
 	[[ $GUI == FALSE ]] && break
 done
 SafeExit
