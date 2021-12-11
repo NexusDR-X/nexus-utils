@@ -186,6 +186,11 @@ do
 	case "$OPTION" in
 	   c)
 	   	MYCALL="$OPTARG"
+	   	if [[ -z $MYCALL ]]
+	   	then
+	   		$(command -v pcmanfm) --set-wallpaper="$DEFAULT_BACKGROUND_IMAGE" --wallpaper-mode=center
+	   		exit 0
+	   	fi
 			GUI=FALSE
 	   	;;
 		h) 
@@ -240,13 +245,13 @@ SERIAL="$(egrep "^Serial" /proc/cpuinfo | sed -e 's/ //;s/\t//g' | cut -d: -f2)"
 
 [[ -z $MYCALL ]] && MYCALL="N0CALL"
 
-if [ -s "$CONFIG_FILE" ]
-then # There is a config file
-	echo "$CONFIG_FILE found."
-else # Set some default values in a new config file
+if [ ! -s "$CONFIG_FILE" ]
+then # There is no config file
 	echo "Config file $CONFIG_FILE not found.  Creating a new one with default values."
-	echo "TEXT=\"$N0CALL\"" > "$CONFIG_FILE"
+	echo "TEXT=\"$MYCALL\"" > "$CONFIG_FILE"
 	echo "SHOW_HOSTNAME=\"TRUE\"" >> "$CONFIG_FILE"
+#else 
+	#echo "$CONFIG_FILE found."
 fi
 source "$CONFIG_FILE"
 
@@ -291,7 +296,7 @@ $MESSAGE</b>\n" \
 	[[ $TEXT == "" ]] && { $(command -v pcmanfm) --set-wallpaper="$DEFAULT_BACKGROUND_IMAGE" --wallpaper-mode=center; continue; }
 
 	TARGET="$PICTURE_DIR/TEXT_$(echo $TEXT | tr -cd [a-zA-Z0-9]).jpg"
-	echo "Deleting $PICTURE_DIR/TEXT_*.jpg"
+	#echo "Deleting $PICTURE_DIR/TEXT_*.jpg"
 	find "$PICTURE_DIR" -maxdepth 1 -name TEXT_*.jpg -type f -delete
 
 	if [[ $SHOW_HOSTNAME == "TRUE" ]]
