@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="1.17.6"
+VERSION="1.17.7"
 
 #
 # Script to generate new VNC server and SSH server keys at boot time if a certain 
@@ -27,7 +27,7 @@ then
 fi
 
 # Got this far?  Initialize this Pi!
-echo "$(date): First time Nexus DR-X boot.  Initializing..." > "$INIT_DONE_FILE"
+echo "$(date): Reset Nexus DR-X to defaults..." > "$INIT_DONE_FILE"
 
 # Generate a new VNC key
 echo "Generate new VNC server key" >> "$INIT_DONE_FILE"
@@ -63,7 +63,6 @@ rm -rf $DIR/Videos/*
 #rm -rf $HOME/.wl2k
 #rm -rf $HOME/.wl2kgw
 rm -rf $HOME/.config/pat
-
 
 echo "Remove Fldigi suite logs and messages and personalized data" >> "$INIT_DONE_FILE"
 DIRS=".nbems .nbems-left .nbems-right"
@@ -151,7 +150,7 @@ do
 done
 
 echo "Restore defaults for tnc-*.conf files" >> "$INIT_DONE_FILE"
-sed -i 's/^MYCALL=.*/MYCALL=\"N0ONE-10\"/' $DIR/tnc-*.conf
+sed -i 's/^MYCALL=.*/MYCALL=\"N0CALL-10\"/' $DIR/tnc-*.conf
 
 # Restore defaults for rmsgw
 
@@ -168,16 +167,18 @@ echo "Restore defaults for RMS Gateway" >> "$INIT_DONE_FILE"
 [ -f /etc/ax25/direwolf.conf ] && sudo rm -f /etc/ax25/direwolf.conf
 [ -f $HOME/rmsgw.conf ] && rm -f $HOME/rmsgw.conf
 id -u rmsgw >/dev/null 2>&1 && sudo crontab -u rmsgw -r 2>/dev/null
-SCRIPT="$(command -v rmsgw-activity.sh)"
-PAT_DIR="$HOME/.wl2kgw"
-PAT="$(command -v pat) --config $PAT_DIR/config.json --mbox $PAT_DIR/mailbox --send-only --event-log /dev/null connect telnet"
-CLEAN="find $PAT_DIR/mailbox/*/sent -type f -mtime +30 -exec rm -f {} \;"
+#SCRIPT="$(command -v rmsgw-activity.sh)"
+#PAT_DIR="$HOME/.wl2kgw"
+#PAT_DIR="$HOME/.config/pat"
+#PAT="$(command -v pat) --config $PAT_DIR/config.json --mbox $PAT_DIR/mailbox --send-only --event-log /dev/null connect telnet"
+#CLEAN="find $PAT_DIR/mailbox/*/sent -type f -mtime +30 -exec rm -f {} \;"
 # remove old style pat cron job, which used the default config.json pat configuration
-OLDPAT="$(command -v pat) --send-only --event-log /dev/null connect telnet"
-cat <(fgrep -i -v "$OLDPAT" <(sudo crontab -u $USER -l)) | sudo crontab -u $USER -
-cat <(fgrep -i -v "$SCRIPT" <(sudo crontab -u $USER -l)) | sudo crontab -u $USER -
-cat <(fgrep -i -v "$PAT" <(sudo crontab -u $USER -l)) | sudo crontab -u $USER -
-cat <(fgrep -i -v "$CLEAN" <(sudo crontab -u $USER -l)) | sudo crontab -u $USER -
+#OLDPAT="$(command -v pat) --send-only --event-log /dev/null connect telnet"
+#cat <(fgrep -i -v "$OLDPAT" <(sudo crontab -u $USER -l)) | sudo crontab -u $USER -
+#cat <(fgrep -i -v "$SCRIPT" <(sudo crontab -u $USER -l)) | sudo crontab -u $USER -
+cat <(fgrep -i -v "$(command -v pat)" <(sudo crontab -u $USER -l)) | sudo crontab -u $USER -
+cat <(fgrep -i -v "activity" <(sudo crontab -u $USER -l)) | sudo crontab -u $USER -
+cat <(fgrep -i -v "mailbox" <(sudo crontab -u $USER -l)) | sudo crontab -u $USER -
 
 #rm -rf $DIR/.flrig/
 #rm -rf $DIR/.fldigi/
@@ -186,6 +187,7 @@ cat <(fgrep -i -v "$CLEAN" <(sudo crontab -u $USER -l)) | sudo crontab -u $USER 
 # Remove Auto Hot-Spot if configured
 echo "Remove Auto-HotSpot" >> "$INIT_DONE_FILE"
 rm -f $HOME/autohotspot.conf
+rm -f 
 sudo sed -i 's|^net.ipv4.ip_forward=1|#net.ipv4.ip_forward=1|' /etc/sysctl.conf
 if systemctl | grep -q "autohotspot"
 then
@@ -213,6 +215,7 @@ for F in $HOME/*.conf
 do
 	[[ $F =~ $HOME/tnc ]] || rm -f $F
 done
+rm -rf $HOME/.config/nexus/*
 
 # Remove piano scripts except the example 
 for F in $HOME/piano*
@@ -223,13 +226,17 @@ done
 # Reset Desktop image
 if [ -f $HOME/.config/pcmanfm/LXDE-pi/desktop-items-0.conf ]
 then
-	rm -f $HOME/desktop-text.conf
+	#rm -f $HOME/desktop-text.conf
 	rm -f $HOME/Pictures/TEXT_*.jpg
 	if [ -f $HOME/Pictures/NexusDeskTop.jpg ]
 	then
 		sed -i -e "s|^wallpaper=.*|wallpaper=$HOME/Pictures/NexusDeskTop.jpg|" $HOME/.config/pcmanfm/LXDE-pi/desktop-items-0.conf
 	fi
 fi
+
+# Clear Terminal history
+echo "" > $HOME/.bash_history && history -c
+echo "Delete shell history" >> "$INIT_DONE_FILE"
 
 # Check for RTC dtoverlay
 echo "Adding RTC dtoverlay if needed"
@@ -246,10 +253,6 @@ then
 	echo "# Enable Fe Pi audio card"  | sudo tee --append /boot/config.txt
 	echo "dtoverlay=fe-pi-audio" | sudo tee --append /boot/config.txt
 fi
-
-# Clear Terminal history
-echo "" > $HOME/.bash_history && history -c
-echo "Delete shell history" >> "$INIT_DONE_FILE"
 
 ## Expand the filesystem if it is < 10 GB 
 echo "Expand filesystem if needed" >> "$INIT_DONE_FILE"
