@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 #
 #
-VERSION="1.0.4"
-#cp -f nexus-utilities/nexus-utilities.version /usr/local/src/nexus/
-cp -f nexus-utilities/*.conf /usr/local/src/nexus/
-cp -f nexus-utilities/*.html /usr/local/share/nexus
-cp -f nexus-utilities/*.jpg $HOME/Pictures/
-cp -f nexus-utilities/*.example $HOME/
-sudo cp -f nexus-utilities/check-piano.sh /usr/local/sbin/
+VERSION="1.0.5"
+#cp -f nexus-utils/nexus-utils.version /usr/local/src/nexus/
+cp -f nexus-utils/*.conf /usr/local/src/nexus/
+cp -f nexus-utils/*.html /usr/local/share/nexus
+cp -f nexus-utils/*.jpg $HOME/Pictures/
+cp -f nexus-utils/*.example $HOME/
+sudo cp -f nexus-utils/check-piano.sh /usr/local/sbin/
 sudo rm -f /usr/local/bin/check-piano.sh
-sudo cp -f nexus-utilities/initialize-pi.sh /usr/local/sbin/
-sudo cp -f nexus-utilities/*.sh /usr/local/bin/
-sudo cp -f nexus-utilities/shutdown_button.py /usr/local/sbin/
-sudo cp -f nexus-utilities/*.py /usr/local/bin/
-sudo cp -f nexus-utilities/*.desktop /usr/local/share/applications/
-sudo cp -f nexus-utilities/*.template /usr/local/share/applications/
-cp -f nexus-utilities/NexusDeskTop.jpg $HOME/Pictures/
+sudo cp -f nexus-utils/initialize-pi.sh /usr/local/sbin/
+sudo cp -f nexus-utils/*.sh /usr/local/bin/
+sudo cp -f nexus-utils/shutdown_button.py /usr/local/sbin/
+sudo cp -f nexus-utils/*.py /usr/local/bin/
+sudo cp -f nexus-utils/*.desktop /usr/local/share/applications/
+sudo cp -f nexus-utils/*.template /usr/local/share/applications/
+cp -f nexus-utils/NexusDeskTop.jpg $HOME/Pictures/
 
 #mkdir -p $HOME/.config/pcmanfm/LXDE-pi
-#cp -f nexus-utilities/desktop-items-0.conf $HOME/.config/pcmanfm/LXDE-pi/
+#cp -f nexus-utils/desktop-items-0.conf $HOME/.config/pcmanfm/LXDE-pi/
 #pcmanfm --reconfigure
 
 # Check for presence of system LXDE-pi autostart and insert check-piano.sh if not 

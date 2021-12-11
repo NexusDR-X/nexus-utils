@@ -93,7 +93,7 @@ SCRIPT_HEADSIZE=$(grep -sn "^# END_OF_HEADER" ${0} | head -1 | cut -f1 -d:)
 VERSION="$(ScriptInfo version | grep version | tr -s ' ' | cut -d' ' -f 4)" 
 
 TITLE="Desktop Text Editor $VERSION"
-CONFIG_FILE="$HOME/desktop-text.conf"
+CONFIG_FILE="$HOME/.config/nexus/desktop-text.conf"
 PICTURE_DIR="$HOME/Pictures"
 DEFAULT_BACKGROUND_IMAGE="$PICTURE_DIR/NexusDeskTop.jpg"
 MESSAGE="Enter the text you want displayed below.\nDon't use any single or double quotation marks."
@@ -281,9 +281,9 @@ $MESSAGE</b>\n" \
 		echo "SHOW_HOSTNAME=\"$SHOW_HOSTNAME\"" >> "$CONFIG_FILE"
 	else
   		TEXT="$MYCALL"
-  		SHOW_HOSTNAME="FALSE"
+  		SHOW_HOSTNAME="TRUE"
    	echo "TEXT=\"$MYCALL\"" > "$CONFIG_FILE"
-  		echo "SHOW_HOSTNAME=\"FALSE\"" >> "$CONFIG_FILE"
+  		echo "SHOW_HOSTNAME=\"$SHOW_HOSTNAME\"" >> "$CONFIG_FILE"
 	fi
 
 	[[ $TEXT == "" ]] && { $(command -v pcmanfm) --set-wallpaper="$DEFAULT_BACKGROUND_IMAGE"; continue; }
