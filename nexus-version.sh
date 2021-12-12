@@ -2,7 +2,7 @@
 
 # Script to print Nexus version and other info
 
-VERSION="1.1.1"
+VERSION="1.1.2"
 
 if [ ! -s /boot/nexus.txt ]
 then
@@ -12,6 +12,6 @@ fi
 
 source /boot/nexus.txt
 
-yad --center --title="Nexus Version - version $VERSION" --info --borders=30 --no-wrap \
+yad --center --title="Nexus Version - version $VERSION" --info --borders=10 --no-wrap \
     --text="<b>Nexus Version $NEXUS_VERSION</b>" --buttons-layout=center --button=Close:0
 exit 0
