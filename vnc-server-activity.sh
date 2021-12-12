@@ -6,7 +6,7 @@
 # Usage: vnc-server-activity.sh [email-address[,email-address]...]
 #
 
-VERSION="1.2.1"
+VERSION="1.2.2"
 
 # Pat and patmail.sh must be installed.  If they are not, exit.
 command -v pat >/dev/null 2>&1 || exit 1
@@ -15,7 +15,7 @@ command -v patmail.sh >/dev/null 2>&1 || exit 1
 declare -i AGE=24 # Specify Age in hours.  Events older than AGE will not be included.
 # Mail VNC Server login activity for last 24 hours.
 # MAILTO can contain multiple destination email addresses.  Separate addresses with a
-# comma.
+# space.
 MAILTO="${1:-w7ecg.wecg@gmail.com}"
 FILTERED="$(mktemp)"
 OUTFILE="$(mktemp)"
@@ -104,7 +104,11 @@ fi
 #   cat $OUTFILE
 #} | /usr/sbin/ssmtp $MAILTO
 #cat $OUTFILE
-cat $OUTFILE | $(command -v patmail.sh) $MAILTO "$HOSTNAME remote access activity for 24 hours preceding `date`" telnet
+#cat $OUTFILE | $(command -v patmail.sh) $MAILTO "$HOSTNAME remote access activity for 24 hours preceding `date`" telnet
+cat $OUTFILE | $(command -v pat) compose --subject "$HOSTNAME remote access activity for 24 hours preceding `date`" $MAILTO &>/dev/null
+$(command -v pat) --send-only connect telnet &>/dev/null
+
+telnet
 rm $OUTFILE
 rm $FILTERED
 rm $TEMPOUT
