@@ -15,7 +15,7 @@
 #%
 #================================================================
 #- IMPLEMENTATION
-#-    version         ${SCRIPT_NAME} 1.3.5
+#-    version         ${SCRIPT_NAME} 1.3.6
 #-    author          Steve Magnuson, AG7GN
 #-    license         CC-BY-SA Creative Commons License
 #-    script_id       0
@@ -213,7 +213,7 @@ RIGHT_RADIO_NAME="${TF[1]}"
 echo "LEFT_RADIO_NAME=\"$LEFT_RADIO_NAME\"" > "$CONFIG_FILE"
 echo "RIGHT_RADIO_NAME=\"$RIGHT_RADIO_NAME\"" >> "$CONFIG_FILE"
 
-D="/usr/local/share/applications"
+D="/usr/share/applications"
 for F in `ls $D/*-left.template` `ls $D/*-right.template`
 do
    sed -e "s/_LEFT_RADIO_/$LEFT_RADIO_NAME/" -e "s/_RIGHT_RADIO_/$RIGHT_RADIO_NAME/g" $F | sudo tee ${F%.*}.desktop 1>/dev/null

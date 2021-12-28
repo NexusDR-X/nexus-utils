@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="1.17.7"
+VERSION="1.17.8"
 
 #
 # Script to generate new VNC server and SSH server keys at boot time if a certain 
@@ -204,7 +204,7 @@ crontab -u $USER -l | grep -v "autohotspotN" | crontab -u $USER -
 
 # Set radio names to default
 rm -f $HOME/radionames.conf
-D="/usr/local/share/applications"
+D="/usr/share/applications"
 for F in $D/*-left.template $D/*-right.template
 do
    sudo sed -e "s/_LEFT_RADIO_/Left Radio/" -e "s/_RIGHT_RADIO_/Right Radio/g" $F > ${F%.*}.desktop
