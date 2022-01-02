@@ -16,7 +16,7 @@
 #%
 #================================================================
 #- IMPLEMENTATION
-#-    version         ${SCRIPT_NAME} 1.2.3
+#-    version         ${SCRIPT_NAME} 1.2.4
 #-    author          Steve Magnuson, AG7GN
 #-    license         CC-BY-SA Creative Commons License
 #-    script_id       0
@@ -239,7 +239,7 @@ then
 fi
 
 MODEL="$(egrep "^Model" /proc/cpuinfo | sed -e 's/ //;s/\t//g' | cut -d: -f2)"
-REVISION="$(egrep "^Revision" /proc/cpuinfo | sed -e 's/ //;s/\t//g' | cut -d: -f2)"
+REVISION="$(egrep "^Revision" /proc/cpuinfo | sed -e 's/ //;s/\t//g' | cut -d: -f2 | sed -e 's/^[0-9]//')"
 SERIAL="$(egrep "^Serial" /proc/cpuinfo | sed -e 's/ //;s/\t//g' | cut -d: -f2)"
 [[ -z $MODEL ]] && INFO="" || INFO="$MODEL with ${MODELS[$REVISION]}"
 
