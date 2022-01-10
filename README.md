@@ -1,6 +1,6 @@
 # Nexus Utilities
 
-VERSION 20210316
+VERSION 20220109
 
 AUTHOR: Steve Magnuson, AG7GN
 
@@ -64,7 +64,6 @@ Some scripts are specific to the [Nexus DR-X](http://wb7fhc.com/nexus-dr-x.html)
 	@lxpanel --profile LXDE-pi
 	@pcmanfm --desktop --profile LXDE-pi
 	@bash /usr/local/bin/check-piano.sh
-	@xscreensaver -no-splash
 
 The script that `check-piano.sh` calls must be in the user's home directory, be marked as executable, and be named `pianoX.sh` where X is one of these:
 
