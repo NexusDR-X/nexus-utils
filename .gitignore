@@ -130,3 +130,10 @@ dmypy.json
 
 # vim temp files
 *~
+
+# Mac
+.DS_Store
+
+
+# Mac 
+.DS_Store
