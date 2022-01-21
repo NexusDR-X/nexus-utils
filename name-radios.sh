@@ -15,7 +15,7 @@
 #%
 #================================================================
 #- IMPLEMENTATION
-#-    version         ${SCRIPT_NAME} 1.3.6
+#-    version         ${SCRIPT_NAME} 1.3.7
 #-    author          Steve Magnuson, AG7GN
 #-    license         CC-BY-SA Creative Commons License
 #-    script_id       0
@@ -24,6 +24,7 @@
 #  HISTORY
 #     20190327 : Steve Magnuson : Script creation
 #     20200204 : Steve Magnuson : Added script template
+#     20220121 : Steve Magnuson : Moved config file to .config/nexus
 # 
 #================================================================
 #  DEBUG OPTION
@@ -90,7 +91,9 @@ SCRIPT_HEADSIZE=$(grep -sn "^# END_OF_HEADER" ${0} | head -1 | cut -f1 -d:)
 VERSION="$(ScriptInfo version | grep version | tr -s ' ' | cut -d' ' -f 4)" 
 
 TITLE="Left/Right Radio Name Editor $VERSION"
-CONFIG_FILE="$HOME/radionames.conf"
+#CONFIG_FILE="$HOME/radionames.conf"
+CONFIG_FILE="$HOME/.config/nexus/radionames.conf"
+[[ -f $HOME/radionames.conf ]] && mv $HOME/desktop-text.conf $CONFIG_FILE
 
 #============================
 #  PARSE OPTIONS WITH GETOPTS
