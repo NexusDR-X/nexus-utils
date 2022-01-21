@@ -93,7 +93,7 @@ VERSION="$(ScriptInfo version | grep version | tr -s ' ' | cut -d' ' -f 4)"
 TITLE="Left/Right Radio Name Editor $VERSION"
 #CONFIG_FILE="$HOME/radionames.conf"
 CONFIG_FILE="$HOME/.config/nexus/radionames.conf"
-[[ -f $HOME/radionames.conf ]] && mv $HOME/desktop-text.conf $CONFIG_FILE
+[[ -f $HOME/radionames.conf ]] && mv $HOME/radionames.conf $CONFIG_FILE
 
 #============================
 #  PARSE OPTIONS WITH GETOPTS
