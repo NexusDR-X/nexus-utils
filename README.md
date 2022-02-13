@@ -13,26 +13,6 @@ Some scripts are specific to the [Nexus DR-X](http://wb7fhc.com/nexus-dr-x.html)
 
 [Name Radios script](#name-radios-script)
 
-[Patmail script](#patmail-script)
-
-[tnc-left.conf tnc-right.conf](#tnc-left-tnc-right-configuration-files)
-
-[Test Piano script](#test-piano-script)
-
-[TNC script](#tnc-script)
-
-[Direwolf APRS GUI](#direwolf-aprs-gui)
-
-[Direwolf + pat GUI](#direwolf-and-pat-gui)
-
-[ARDOP + pat GUI](#ardop-and-pat-gui)
-
-[Rig Control Configuration GUI](#rig-control-gui)
-
-[Fldigi + Flmsg trim log scripts](#trim-scripts)
-
-[TNC Watchdog script](#watchdog-tnc-script)
-
 [Shutdown Button and LED script](#shutdown-button-script)
 
 [Radio PTT Monitor script](#radio-monitor-script)
@@ -43,8 +23,6 @@ Some scripts are specific to the [Nexus DR-X](http://wb7fhc.com/nexus-dr-x.html)
 
 [Edit Desktop Text script](#edit-desktop-text-script)
 
-[FSQ Text Search script](#fsq-search-script)
-
 [VNC Server Activity Reporting script](#vnc-server-activity-script)
 
 [USB Device Manager](#usb-device-manager-script)
@@ -54,8 +32,8 @@ Some scripts are specific to the [Nexus DR-X](http://wb7fhc.com/nexus-dr-x.html)
 
 ### Install
 
-- Click __Raspberry > Hamradio > Update Pi and Ham Apps__.
-- Check __nexus-utilities__, click __OK__.
+- Click __Raspberry > Hamradio > Nexus Updater__.
+- Check __nexus-utils__, click __OK__.
 
 ## Check Piano script
 
@@ -65,9 +43,13 @@ Some scripts are specific to the [Nexus DR-X](http://wb7fhc.com/nexus-dr-x.html)
 	@pcmanfm --desktop --profile LXDE-pi
 	@bash /usr/local/bin/check-piano.sh
 
-The script that `check-piano.sh` calls must be in the user's home directory, be marked as executable, and be named `pianoX.sh` where X is one of these:
+The script that `check-piano.sh` calls (that is, the script *you* create) must be:
 
-	1, 12, 13, 14, 123, 124, 134, 1234, 2, 23, 234, 24, 3, 34, 4
+- In the user's home directory (`/home/pi` by default)
+- Marked as executable (run `chmod +x pianoX.sh` to make executable)
+- Named `pianoX.sh` where X is one of these:
+
+		1, 12, 13, 14, 123, 124, 134, 1234, 2, 23, 234, 24, 3, 34, 4
 
 NOTE: If no switch levers are in the down position, `piano.sh` will run, so there are 16 possible lever positions and corresponding scripts.
 
