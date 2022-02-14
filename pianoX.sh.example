@@ -1,23 +1,35 @@
 #!/bin/bash
 
-VERSION="1.2.1"
+VERSION="1.2.2"
 
 # This an example pianoX.sh script.
 
-# piano scripts are user defined and they run automatically at startup 
-# depending on the position of the levers of the piano switch 
-# mounted on the Nexus board.
-
-# For example, if you want to run a particular script when the 
-# piano switch levers 1 and 4 are Up and 2 and 3 are down, name youor script
-# nexus23.sh.  Nexus scripts must be in your home directory and must be
-# executable.  You can make your script executable by running this command:
-
-# chmod +x <script name>
-
-# For example:
-
-# chmod +x piano1234.sh
+# Piano scripts are user defined and they run automatically at startup 
+# depending on the position of the levers of the 4 position piano switch 
+# mounted on the Nexus board. Your script must meet the following
+# criteria:
+#
+# - Located in your home folder (usually /home/pi)
+#
+# - Named 'pianoX.sh' where X is one of these:
+#
+#		1, 12, 13, 14, 123, 124, 134, 1234, 2, 23, 234, 24, 3, 34, 4
+#
+#   NOTE: If no switch levers are in the down position, 'piano.sh' 
+#   (if it exists) will run so there are 16 possible lever positions 
+#   and corresponding scripts.
+#
+# - Must be executable. You can make your script executable 
+#   by running this command:
+#
+#     chmod +x <script name>
+#
+#   For example:
+#
+#     chmod +x piano1234.sh
+#
+# For example, if your script is named 'piano23.sh', it will run at bootup
+# when piano switch levers 1 and 4 are up and 2 and 3 are down.  
 
 #===========================================================================
 # EXAMPLE 1: This script will change the call sign and other parameters
@@ -34,9 +46,9 @@ CITY="Anytown"
 EMAIL="n0one@example.com"
 QTH="Anytown"
 LOC="CN88ss"
-#==========================================================================
 
-killall -q flmsg || true
+# Close Flmsg if it's running
+(pgrep -x flmsg &>/dev/null) && pkill -SIGTERM -x flmsg
 DIRS=".nbems .nbems-left .nbems-right"
 for D in $DIRS
 do
@@ -50,8 +62,8 @@ do
 				 -e "s/^myemail:.*/myemail:$EMAIL/" $HOME/$D/FLMSG.prefs
 	fi
 done
-
-killall -q fldigi || true
+# Close Fldigi if it's running
+(pgrep -x fldigi &>/dev/null) && pkill -SIGTERM -x fldigi
 DIRS=".fldigi .fldigi-left .fldigi-right"
 for D in $DIRS
 do
@@ -64,14 +76,15 @@ do
 		       -e "s/<OPERCALL>.*<\/OPERCALL>/<OPERCALL>$OP_CALL<\/OPERCALL>/" $HOME/$D/fldigi_def.xml
 	fi
 done
-
+#==========================================================================
 #==========================================================================
 # EXAMPLE 2: You can manipulate the
 # desktop wallpaper, background and foreground, etc.
-# Those settings are stored in $HOME/.config/pcmanfm/LXDE-pi. You're on
+# Those settings are stored in 
+# $HOME/.config/pcmanfm/LXDE-pi/desktop-items-0.conf. You're on
 # your own for creating that script.
 #
-
+#==========================================================================
 #==========================================================================
 # EXAMPLE 3: Automatically start one or more applications.  
 # Anything that you can start from the menu
