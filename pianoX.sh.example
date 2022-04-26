@@ -9,7 +9,7 @@ VERSION="1.2.2"
 # mounted on the Nexus board. Your script must meet the following
 # criteria:
 #
-# - Located in your home folder (usually /home/pi)
+# - Located in your home folder
 #
 # - Named 'pianoX.sh' where X is one of these:
 #

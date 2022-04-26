@@ -45,7 +45,7 @@ Some scripts are specific to the [Nexus DR-X](http://wb7fhc.com/nexus-dr-x.html)
 
 The script that `check-piano.sh` calls (that is, the script *you* create) must be:
 
-- In the user's home directory (`/home/pi` by default)
+- In the user's home directory
 - Marked as executable (run `chmod +x pianoX.sh` to make executable)
 - Named `pianoX.sh` where X is one of these:
 
@@ -282,11 +282,11 @@ You can also specify the name and location of the configuration file using the '
 	
 This collection of scripts trims the logs of various applications in the Fldigi family.  They all take 1 argument: A date reference, for example: "10 days ago" or "1 hour ago".  The script will delete log entries older than the date specified.  These scripts are run whenever you launch Fldigi, Flrig and Flmsg from the __Raspberry > Hamradio__ menu.  You can change the timeframe of the trim by editing the `.desktop.` file.  For example, this is the Exec entry in the `/usr/local/share/applications/fldigi-left.desktop` file:
 
-	Exec=sh -c '/usr/local/bin/trim-fldigi-log.sh "yesterday";PULSE_SINK=fepi-playback PULSE_SOURCE=fepi-capture fldigi --config-dir /home/pi/.fldigi-left -title "Fldigi (Left Radio)" --flmsg-dir /home/pi/.nbems-left'	
+	Exec=sh -c '/usr/local/bin/trim-fldigi-log.sh "yesterday";PULSE_SINK=fepi-playback PULSE_SOURCE=fepi-capture fldigi --config-dir $HOME/.fldigi-left -title "Fldigi (Left Radio)" --flmsg-dir $HOME/.nbems-left'	
 	
 To change it to trim log entries older than 2 weeks ago rather than yesterday, the line would look like this:
 
-	Exec=sh -c '/usr/local/bin/trim-fldigi-log.sh "2 weeks ago";PULSE_SINK=fepi-playback PULSE_SOURCE=fepi-capture fldigi --config-dir /home/pi/.fldigi-left -title "Fldigi (Left Radio)" --flmsg-dir /home/pi/.nbems-left'	
+	Exec=sh -c '/usr/local/bin/trim-fldigi-log.sh "2 weeks ago";PULSE_SINK=fepi-playback PULSE_SOURCE=fepi-capture fldigi --config-dir $HOME/.fldigi-left -title "Fldigi (Left Radio)" --flmsg-dir $HOME/.nbems-left'	
 
 ## Watchdog TNC Script
 
