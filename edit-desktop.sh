@@ -16,7 +16,7 @@
 #%
 #================================================================
 #- IMPLEMENTATION
-#-    version         ${SCRIPT_NAME} 1.2.4
+#-    version         ${SCRIPT_NAME} 1.2.5
 #-    author          Steve Magnuson, AG7GN
 #-    license         CC-BY-SA Creative Commons License
 #-    script_id       0
@@ -311,6 +311,15 @@ $MESSAGE</b>\n" \
 			-gravity south -pointsize 75 -fill yellow -annotate +0+40 "$TEXT" $TARGET
 	fi
 	$(command -v pcmanfm) --set-wallpaper="$TARGET" --wallpaper-mode=center
+	eval $(grep -E "_bg|_shadow" /usr/local/src/nexus/nexus-utils/desktop-items-0.conf)
+	if [[ -n $desktop_bg ]] && [[ -n $desktop_shadow ]] 
+	then
+		echo >&2 "Fix desktop background color"
+		sed -i -e "s/^desktop_bg=.*/desktop_bg=${desktop_bg}/" \
+			-e "s/^desktop_shadow=.*/desktop_shadow=${desktop_shadow}/" \
+			$HOME/.config/pcmanfm/LXDE-pi/desktop-items-0.conf
+		pcmanfm --reconfigure
+	fi
 	#$(command -v pcmanfm) --reconfigure
 	[[ $GUI == FALSE ]] && break
 done
