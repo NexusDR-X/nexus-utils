@@ -12,6 +12,7 @@ sudo cp -f nexus-utils/check-piano.sh /usr/local/sbin/
 sudo cp -f nexus-utils/initialize-pi.sh /usr/local/sbin/
 sudo cp -f nexus-utils/*.sh /usr/local/bin/
 sudo cp -f nexus-utils/shutdown_button.py /usr/local/sbin/
+sudo cp -f nexus-utils/shutdown_button_blink.py /usr/local/sbin/
 sudo cp -f nexus-utils/*.py /usr/local/bin/
 sudo cp -f nexus-utils/*.desktop /usr/local/share/applications/
 #sudo cp -f nexus-utils/*.template /usr/local/share/applications/
