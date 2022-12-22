@@ -1,6 +1,6 @@
 #!/usr/bin/python3                 
 
-# Version 2.1.1
+# Version 2.1.2
 # Original script by Stewart C. Russell via https://github.com/scruss/shutdown_button
 # Modified by Steve Magnuson, AG7GN to control LED on different GPIO during Button
 # press.
