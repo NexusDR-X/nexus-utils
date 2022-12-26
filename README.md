@@ -1,6 +1,6 @@
 # Nexus Utilities
 
-VERSION 20220109
+VERSION 20221222
 
 AUTHOR: Steve Magnuson, AG7GN
 
@@ -304,6 +304,8 @@ To change it to trim log entries older than 2 weeks ago rather than yesterday, t
 ## Shutdown Button Script
 
 `shutdown_button.py` monitors the shutdown button found on the DigiLink REV DS and [Nexus DR-X](http://wb7fhc.com/nexus-dr-x.html) boards.  It reboots the Pi if the button is pressed more than 2 but less than 5 seconds, or shuts down the Pi if the button is pressed for more than 5 seconds.
+
+The LED also pulses every 2 seconds. This is to support WB7FHC's hardware watchdog hat, which uses the GPIO output tied to this LED as a proof-of-life heartbeat for the board. If the heartbeat is stopped (if the Pi locks up, for example, or the script is stoppes) for some numer of seconds, the hardware watchdog hat removes and re-applies power to the Nexus DR-X buck converter.
 
 Your Nexus DR-X image already has the systemd service file for the shutdown script installed and enabled.  No further action is required to enable it, but __for documentation purposes only__, here's how to enable the service manually:
 
