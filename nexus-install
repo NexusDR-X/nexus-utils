@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 #
-VERSION="1.0.7"
+VERSION="1.0.8"
 #cp -f nexus-utils/nexus-utils.version /usr/local/src/nexus/
 cp -f nexus-utils/*.conf /usr/local/src/nexus/
 #cp -f nexus-utils/*.html /usr/local/share/nexus
@@ -20,9 +20,12 @@ sudo cp -f nexus-utils/*.desktop /usr/local/share/applications/
 #sudo cp -f nexus-utils/*.template /usr/local/share/applications/
 cp -f nexus-utils/NexusDeskTop.jpg $HOME/Pictures/
 
-#mkdir -p $HOME/.config/pcmanfm/LXDE-pi
-#cp -f nexus-utils/desktop-items-0.conf $HOME/.config/pcmanfm/LXDE-pi/
-#pcmanfm --reconfigure
+if ! [[ -s $HOME/.config/pcmanfm/LXDE-pi/desktop-items-0.conf ]]
+then
+	mkdir -p $HOME/.config/pcmanfm/LXDE-pi
+	cp -f nexus-utils/desktop-items-0.conf $HOME/.config/pcmanfm/LXDE-pi/
+	pcmanfm --reconfigure
+fi
 
 # Check for presence of system LXDE-pi autostart and insert check-piano.sh if not 
 # already present
