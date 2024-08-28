@@ -16,7 +16,7 @@
 #%
 #================================================================
 #- IMPLEMENTATION
-#-    version         ${SCRIPT_NAME} 1.2.5
+#-    version         ${SCRIPT_NAME} 1.2.6
 #-    author          Steve Magnuson, AG7GN
 #-    license         CC-BY-SA Creative Commons License
 #-    script_id       0
@@ -101,37 +101,15 @@ DEFAULT_BACKGROUND_IMAGE="$PICTURE_DIR/NexusDeskTop.jpg"
 MESSAGE="Enter the text you want displayed below.\nDon't use any single or double quotation marks."
 GUI=TRUE
 
-declare -A MODELS
-MODELS[a02082]="1GB RAM"
-MODELS[a020d3]="1GB RAM"
-MODELS[a22082]="1GB RAM"
-MODELS[a32082]="1GB RAM"
-MODELS[a52082]="1GB RAM"
-MODELS[a22083]="1GB RAM"
-MODELS[a32082]="1GB RAM"
-MODELS[a220a0]="1GB RAM"
-MODELS[a02100]="1GB RAM"
-MODELS[a03111]="1GB RAM"
-MODELS[b03111]="2GB RAM"
-MODELS[b03112]="2GB RAM"
-MODELS[c03111]="4GB RAM"
-MODELS[c03112]="4GB RAM"
-MODELS[d03114]="8GB RAM"
-#MODELS[a02082]="1GB RAM Manufacturer: Sony UK"
-#MODELS[a020d3]="1GB RAM Manufacturer: Sony UK"
-#MODELS[a22082]="1GB RAM Manufacturer: Embest"
-#MODELS[a32082]="1GB RAM Manufacturer: Sony Japan"
-#MODELS[a52082]="1GB RAM Manufacturer: Stadium"
-#MODELS[a22083]="1GB RAM Manufacturer: Embest"
-#MODELS[a32082]="1GB RAM Manufacturer: Sony Japan"
-#MODELS[a220a0]="1GB RAM Manufacturer: Embest"
-#MODELS[a02100]="1GB RAM Manufacturer: Sony UK"
-#MODELS[a03111]="1GB RAM Manufacturer: Sony UK"
-#MODELS[b03111]="2GB RAM Manufacturer: Sony UK"
-#MODELS[b03112]="2GB RAM Manufacturer: Sony UK"
-#MODELS[c03111]="4GB RAM Manufacturer: Sony UK"
-#MODELS[c03112]="4GB RAM Manufacturer: Sony UK"
-#MODELS[d03114]="8GB RAM Manufacturer: Sony UK"
+declare -A RAM
+RAM[0]="256MB RAM"
+RAM[1]="512MB RAM"
+RAM[2]="1GB RAM"
+RAM[3]="2GB RAM"
+RAM[4]="4GB RAM"
+RAM[5]="8GB RAM"
+RAM[6]="16GB RAM"
+RAM[7]="32GB RAM"
 
 #============================
 #  PARSE OPTIONS WITH GETOPTS
@@ -241,7 +219,20 @@ fi
 MODEL="$(egrep "^Model" /proc/cpuinfo | sed -e 's/ //;s/\t//g' | cut -d: -f2)"
 REVISION="$(egrep "^Revision" /proc/cpuinfo | sed -e 's/ //;s/\t//g' | cut -d: -f2 | sed -e 's/^[0-9]//')"
 SERIAL="$(egrep "^Serial" /proc/cpuinfo | sed -e 's/ //;s/\t//g' | cut -d: -f2)"
-[[ -z $MODEL ]] && INFO="" || INFO="$MODEL with ${MODELS[$REVISION]}"
+if [[ -z $MODEL ]]
+then
+   INFO=""
+else
+   if [[ -z $REVISION ]]
+   then
+      INFO="$MODEL"
+   else
+      REV=0x$REVISION
+      M=$((REV >> 20))
+      M=$((M & 0x7))
+      INFO="$MODEL with ${RAM[$M]}"
+   fi
+fi
 
 [[ -z $MYCALL ]] && MYCALL="N0CALL"
 
